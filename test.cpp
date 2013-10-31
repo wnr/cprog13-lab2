@@ -229,6 +229,32 @@ int main() {
     assert(!(date > date2));
     assert(!(date >= date2));
   }
+  // diff operator
+  {
+    TestDate date(7, 12, 1991, 11, 23);
+    TestDate date2(7, 12, 1991, 11, 23);
+
+    assert(date-date2 == 0);
+
+    ++date2;
+    assert(date-date2 == -1);
+
+    date += 2;
+    assert(date-date2 == 1);
+
+    date = date2;
+
+    date.add_year();
+    assert(date-date2 == 365);
+
+    date.add_year(-2);
+    assert(date-date2 == -365);
+
+    date = date2;
+
+    date.add_month(1);
+    assert(date-date2 == 31);
+  }
   // mod_julian_day
   {
     //TODO: Implement me.

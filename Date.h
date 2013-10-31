@@ -3,7 +3,7 @@
 
 #define EXCEPTION_ILLEGAL_ARGUMENT 1
 
-class ostream;
+#include <ostream>
 
 namespace lab2 {
   /* Abstract interface class for representing dates. */
@@ -133,9 +133,9 @@ namespace lab2 {
     Date & decrease_day(int n = 1);
 
   };
-
-  /* << operator. Function used to print object by ostream. */
-  ostream & operator<< (ostream & os, const Date & date);
 }
+
+/* << operator. Function used to print object by ostream. */
+std::ostream & operator<< (std::ostream & os, const lab2::Date & date);
 
 #endif

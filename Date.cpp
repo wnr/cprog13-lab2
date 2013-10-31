@@ -1,11 +1,9 @@
 #include "Date.h"
 
-#include <ostream>
-
 using namespace lab2;
 
 /* << operator. Function used to print object by ostream. */
-std::ostream & operator<< (std::ostream & os, const Date & date) {
+std::ostream & operator<< (std::ostream & os, const lab2::Date & date) {
   os << date.year() << "-" << date.month() << "-" << date.day();
   return os;
 }
@@ -159,11 +157,11 @@ int Date::operator- (const Date & date) const {
   int dSignum = mDay > date.mDay ? -1 : 1;
 
   for(; year != date.mYear; year += ySignum) {
-    days += ySignum * days_per_year();
+    days += days_per_year();
   }
 
   for(; month != date.mMonth; month += mSignum) {
-    days += mSignum * days_in_month(month);
+    days += days_in_month(month);
   }
 
   for(; day != date.mDay; day += dSignum) {
