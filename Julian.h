@@ -20,7 +20,17 @@ namespace lab2 {
     /* Postfixed -- operator. Removes one day. */
     const Julian operator-- (int);
     
+    /* ======= Misc ======= */
+    
+    /* Gets the number of days since modified julian day.
+     * Pure virtual because the MJD depends on specific date calculations. */
+    int mod_julian_day() const;
+    
   protected:
+    /* Gets the number of days of a given month. Pure virtual since this is unknown to the Date abstract class. 
+     * Is cyclic, so month = 13 = 1. */
+    int days_in_month(int month) const;
+  
     /* Returns true if the current year is a leap year. */
     virtual bool is_leap() const;
     

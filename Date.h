@@ -7,6 +7,7 @@
 namespace lab2 {
   /* Abstract interface class for representing dates. */
   class Date {
+  protected:
     //The number of days in a week.
     int mNumDaysPerWeek;
 
@@ -111,7 +112,8 @@ namespace lab2 {
     virtual int mod_julian_day() const = 0;
 
   protected:
-    /* Gets the number of days of a given month. Pure virtual since this is unknown to the Date abstract class. */
+    /* Gets the number of days of a given month. Pure virtual since this is unknown to the Date abstract class. 
+     * Is cyclic, so month = 13 = 1. */
     virtual int days_in_month(int month) const = 0;
 
     /* Increase years. */
