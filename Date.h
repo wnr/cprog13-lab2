@@ -114,8 +114,7 @@ namespace lab2 {
   protected:
     /* Gets the number of days of a given month. Pure virtual since this is unknown to the Date abstract class. */
     virtual int days_in_month(int month) const = 0;
-    
-  private:
+
     /* Increase years. */
     Date & increase_year(int n = 1);
 

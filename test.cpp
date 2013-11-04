@@ -73,7 +73,7 @@ int main() {
     assert(date.days_this_month() == 30);
 
     date = TestDate(7, 12, 1991, 4, 4);
-    assert(date.days_this_month() == 30);
+    assert(date.days_this_month() == 30git );
   }
   // days_per_year
   {
