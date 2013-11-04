@@ -3,6 +3,8 @@
 
 #include "date.h"
 
+#include "calendar.h"
+
 using namespace lab2;
 
 class TestDate : public Date {
@@ -10,11 +12,11 @@ public:
   TestDate() : Date() {}
   TestDate(int numDaysPerWeek, int numMonthsPerYear, int year, int month, int day) : Date(numDaysPerWeek, numMonthsPerYear, year, month, day) {}
   TestDate(const Date & date) : Date(date) {}
-  
+
   int mod_julian_day() const { return 0; }
   std::string month_name() const { return std::string(); }
   std::string week_day_name() const { return std::string(); }
-  
+
 protected:
   int days_in_month(int month) const {
     if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
