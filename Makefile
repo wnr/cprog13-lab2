@@ -1,4 +1,5 @@
-COMPILE=clang++ -std=c++11 -stdlib=libc++ -g -Wall
+#COMPILE=clang++ -std=c++11 -stdlib=libc++ -g -Wall
+COMPILE=g++ -g -static -std=gnu++0x -Wall
 
 compile:
 	$(COMPILE) Date.cpp test.cpp -o test
