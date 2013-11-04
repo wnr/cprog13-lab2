@@ -18,6 +18,10 @@ int main()
 {
     using namespace lab2;        // Exponera funktionalitet i namnrymden lab2
 
+    Gregorian test = Gregorian();
+    
+    std::cout << test.mod_julian_day();
+
     ////////////////////////////////////////////////////////////
     // Sätt tiden. OBS skicka inte nedanstående kod till kattis
     time_t mytime;

@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <iostream>
 
-#include "Date.h"
+#include "date.h"
 
 using namespace lab2;
 
@@ -12,6 +12,8 @@ public:
   TestDate(const Date & date) : Date(date) {}
   
   int mod_julian_day() const { return 0; }
+  std::string month_name() const { return std::string(); }
+  std::string week_day_name() const { return std::string(); }
   
 protected:
   int days_in_month(int month) const {
@@ -49,23 +51,6 @@ int main() {
     assert(date.month() == 1);
     assert(date.day() == 4);
     assert(otherDate.days_per_week() == 7 && otherDate.months_per_year() == 12);
-  }
-  // week_day
-  {
-    TestDate date(7, 12, 1991, 11, 4);
-    assert(date.week_day() == 4);
-
-    date = TestDate(7, 12, 1991, 11, 7);
-    assert(date.week_day() == 7);
-
-    date = TestDate(7, 12, 1991, 11, 7);
-    assert(date.week_day() == 7);
-
-    date = TestDate(7, 12, 1991, 11, 8);
-    assert(date.week_day() == 1);
-
-    date = TestDate(7, 12, 1991, 11, 23);
-    assert(date.week_day() == 2);
   }
   // days_this_month
   {
@@ -230,32 +215,6 @@ int main() {
     assert(date != date2);
     assert(!(date > date2));
     assert(!(date >= date2));
-  }
-  // diff operator
-  {
-    TestDate date(7, 12, 1991, 11, 23);
-    TestDate date2(7, 12, 1991, 11, 23);
-
-    assert(date-date2 == 0);
-
-    ++date2;
-    assert(date-date2 == -1);
-
-    date += 2;
-    assert(date-date2 == 1);
-
-    date = date2;
-
-    date.add_year();
-    assert(date-date2 == 365);
-
-    date.add_year(-2);
-    assert(date-date2 == -365);
-
-    date = date2;
-
-    date.add_month(1);
-    assert(date-date2 == 31);
   }
 
   std::cout << "\033[32mAll tests passed.\033[0m" << std::endl;
