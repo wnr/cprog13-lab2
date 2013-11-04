@@ -97,7 +97,6 @@ int main() {
   }
   // add_month
   {
-
     TestDate date(7, 12, 1991, 11, 23);
     date.add_month();
     assert(date.year() == 1991);
@@ -122,8 +121,8 @@ int main() {
     date = TestDate(7, 12, 1991, 1, 31);
     date.add_month();
     assert(date.year() == 1991);
-    assert(date.month() == 3);
-    assert(date.day() == 3);
+    assert(date.month() == 2);
+    assert(date.day() == 28);
 
     date = TestDate(7, 12, 1991, 3, 30);
     date.add_month(-1);

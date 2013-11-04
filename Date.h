@@ -65,16 +65,16 @@ namespace lab2 {
     /* ======= Operators ======= */
 
     /* Prefixed ++ operator. Adds one day. */
-    const Date & operator++ ();
+    Date & operator++ ();
 
     /* Prefixed -- operator. Removes one day. */
-    const Date & operator-- ();
+    Date & operator-- ();
 
     /* += operator. Adds days. */
-    const Date & operator+= (int days);
+    Date & operator+= (int days);
 
     /* -= operator. Removes days. */
-    const Date & operator-= (int days);
+    Date & operator-= (int days);
 
     /* == operator. */
     bool operator== (const Date & date) const;

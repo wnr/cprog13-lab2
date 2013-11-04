@@ -78,22 +78,22 @@ int Date::days_per_year() const {
 /* ======= Operators ======= */
 
 /* Prefixed ++ operator. Adds one day. */
-const Date & Date::operator++ () {
+Date & Date::operator++ () {
   return this->add_day(1);
 }
 
 /* Prefixed -- operator. Removes one day. */
-const Date & Date::operator-- () {
+Date & Date::operator-- () {
   return this->add_day(-1);
 }
 
 /* += operator. Adds days. */
-const Date & Date::operator+= (int days) {
+Date & Date::operator+= (int days) {
   return this->add_day(days);
 }
 
 /* -= operator. Removes days. */
-const Date & Date::operator-= (int days) {
+Date & Date::operator-= (int days) {
   return this->add_day(-days);
 }
 
@@ -252,8 +252,7 @@ Date & Date::increase_month(int n) {
     }
 
     if(mDay > days_in_month(mMonth)) {
-      mDay -= days_in_month(mMonth);
-      add_month();
+      mDay = std::min(days_in_month(mMonth), mDay);
     }
   }
 
