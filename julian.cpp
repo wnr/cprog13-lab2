@@ -15,25 +15,25 @@ Julian::Julian() : Jesus(1858, 11, 5) {
 }
 
 /* Initializing constructor. */
-Julian::Julian(int year, int month, int day) : Jesus(year, month, day) {}
-
-/* Copy constructor. */
-Julian::Julian(const Date & date) : Jesus(1858, 11, 17) {
-  int mjd = date.mod_julian_day();
-  
-  //TODO
+Julian::Julian(int year, int month, int day) : Jesus(year, month, day) {
+  if(day > days_this_month()) {
+    throw std::out_of_range("Illegal arguments");
+  }
 }
 
 /* Copy constructor. */
-Julian::Julian(const Date * date) : Jesus(1858, 11, 17) {
-  int mjd = date->mod_julian_day();
-  
-  //TODO
+Julian::Julian(const Date & date) : Jesus(1858, 11, 5) {
+  Jesus::init(date);
+}
+
+/* Copy constructor. */
+Julian::Julian(const Date * date) : Jesus(1858, 11, 5) {
+  Jesus::init(*date);
 }
 
 /* Returns true if the current year is a leap year. */
 bool Julian::is_leap() const {
-  return year() % 4 == 0;
+  return lab2::mod(year(), 4) == 0;
 }
 
 /* Gets the number of days since modified julian day.

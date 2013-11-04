@@ -210,7 +210,7 @@ int main(int argc, char **argv) {
 				}
 				cout << "L" << linenr << ":D" << idx << ";" << (*dates[idx]) << endl;
 			} catch (std::out_of_range oor) {
-				cout << "L" << linenr << ":D" << idx << ";" <<"exception_in_add_month" << endl;
+				cout << "L" << linenr << ":D" << idx << ";" <<"exception_in_add_month" << val << *dates[idx] << endl;
 			}
 		} else if(command == "d==") {
 			const size_t lhs = read_idx_or_die();

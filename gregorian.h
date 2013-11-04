@@ -12,6 +12,12 @@ namespace lab2 {
     /* Initializing constructor. */
     Gregorian(int year, int month, int day);
     
+    /* Copy constructor. */
+    Gregorian(const Date & date);
+    
+    /* Copy constructor. */
+    Gregorian(const Date * date);
+    
     /* ======= Operators ======= */
     
     /* Postfixed ++ operator. Adds one day. */

@@ -1,12 +1,10 @@
 #include "jesus.h"
+#include <iomanip>
 
 using namespace lab2;
 
-/* << operator. Function used to print object by ostream. */
-//TODO fix as spec.
-std::ostream & operator<< (std::ostream & os, const lab2::Jesus & date) {
-  os << date.year() << "-" << date.month() << "-" << date.day();
-  return os;
+long lab2::mod(long a, long b) { 
+  return (a%b+b)%b;
 }
 
 /* Initializer constructor. */
@@ -30,7 +28,7 @@ std::string Jesus::week_day_name() const {
     return std::string("sunday");
   }
   
-  throw std::exception();
+  throw std::out_of_range("Invalid week day");
 }
 
 /* Gets the month name. */
@@ -61,13 +59,13 @@ std::string Jesus::month_name() const {
     return std::string("december");
   }
   
-  throw std::exception();
+  throw std::out_of_range("Invalid month number");
 }
 
 /* Gets the number of days of a given month. Pure virtual since this is unknown to the Date abstract class. 
  * Is cyclic, so month = 13 = 1. */
 int Jesus::days_in_month(int month) const {
-  month = (month - 1) % 12 + 1;
+  month = mod(month - 1, 12) + 1;
 
   if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
     return 31;
@@ -119,7 +117,7 @@ Jesus & Jesus::decrease_month(int n) {
       mMonth--;
       
       if(mMonth == 0) {
-        mMonth = 1;
+        mMonth = 12;
         add_year(-1);
       }
     }
@@ -138,7 +136,7 @@ Jesus & Jesus::increase_year(int n) {
   
   if(month() == 2 && day() == 29) {
   
-    if(is_leap()) {
+    if(!is_leap()) {
       mDay = 28;
     }
   }
@@ -161,4 +159,10 @@ Jesus & Jesus::decrease_year(int n) {
   }
   
   return *this;
+}
+
+void Jesus::init(const Date & date) {
+  int mjd = date.mod_julian_day();
+  
+  add_day(mjd);
 }

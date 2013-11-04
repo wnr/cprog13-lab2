@@ -36,6 +36,22 @@ int main()
       Julian j = Julian(1858, 11, 4);
       assert(j.mod_julian_day() == -1);
     }
+    {
+      Julian j = Julian(1977, 1, 20);
+      j.add_month(-5);
+    }
+    {
+      Julian j = Julian(2604, 2, 29);
+      j.add_year(1);
+      
+      assert(j.day() == 28);
+    }
+    {
+      Julian j = Julian(2390, 2, 28);
+      j.add_month(-2);
+      assert(j.month() == 12);
+      assert(j.day() == 28);
+    }
 
     ////////////////////////////////////////////////////////////
     // Sätt tiden. OBS skicka inte nedanstående kod till kattis

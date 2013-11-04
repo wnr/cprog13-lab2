@@ -1,10 +1,12 @@
 #include "date.h"
+#include <iomanip>
+#include <typeinfo>
 
 using namespace lab2;
 
 /* << operator. Function used to print object by ostream. */
 std::ostream & operator<< (std::ostream & os, const lab2::Date & date) {
-  os << date.year() << "-" << date.month() << "-" << date.day();
+  os << /*typeid(date).name() <<*/ date.year() << "-" << std::setw(2) << std::setfill('0') << date.month() << "-" << std::setw(2) << std::setfill('0') << date.day();
   return os;
 }
 
@@ -14,7 +16,11 @@ std::ostream & operator<< (std::ostream & os, const lab2::Date & date) {
 Date::Date() : mNumDaysPerWeek(0), mNumMonthsPerYear(0), mYear(0), mMonth(0), mDay(0) {}
 
 /* Initializer constructor. */
-Date::Date(int numDaysPerWeek, int numMonthsPerYear, int year, int month, int day) : mNumDaysPerWeek(numDaysPerWeek), mNumMonthsPerYear(numMonthsPerYear), mYear(year), mMonth(month), mDay(day) {}
+Date::Date(int numDaysPerWeek, int numMonthsPerYear, int year, int month, int day) : mNumDaysPerWeek(numDaysPerWeek), mNumMonthsPerYear(numMonthsPerYear), mYear(year), mMonth(month), mDay(day) {
+  if(month < 1 || day < 1 || month > numMonthsPerYear) {
+    throw std::out_of_range("Illegal constructor arguments");
+  }
+}
 
 /* Copy constructor. */
 //TODO: Is it possible to copy one type of calender to another? If so, then what happens with the overloaded functions, etc?

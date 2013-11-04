@@ -4,11 +4,13 @@
 #include "date.h"
 
 namespace lab2 {
+  long mod(long a, long b);
+
   class Jesus : public Date {
   public:
     /* Initializer constructor. */
     Jesus(int year, int month, int day);
-  
+    
     /* ======= Misc ======= */
     
     /* Gets the number of days since modified julian day.
@@ -39,11 +41,10 @@ namespace lab2 {
     Jesus & increase_year(int n = 1);
 
     /* Decrease years. */
-    Jesus & decrease_year(int n = 1);  
+    Jesus & decrease_year(int n = 1);
+    
+    void init(const Date & date);
   };
 }
-
-/* << operator. Function used to print object by ostream. Prints on the format YYYY-MM-DD */
-std::ostream & operator<< (std::ostream & os, const lab2::Jesus & date);
 
 #endif

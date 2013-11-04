@@ -12,7 +12,21 @@ Gregorian::Gregorian() : Jesus(1970, 1, 1) {
 }
 
 /* Initializing constructor. */
-Gregorian::Gregorian(int year, int month, int day) : Jesus(year, month, day) {}
+Gregorian::Gregorian(int year, int month, int day) : Jesus(year, month, day) {
+  if(day > days_this_month()) {
+    throw std::out_of_range("Illegal arguments");
+  }
+}
+
+/* Copy constructor. */
+Gregorian::Gregorian(const Date & date) : Jesus(1858, 11, 17) {
+  Jesus::init(date);
+}
+
+/* Copy constructor. */
+Gregorian::Gregorian(const Date * date) : Jesus(1858, 11, 17) {
+  Jesus::init(*date);
+}
 
 /* Gets the number of days since modified julian day.
  * Pure virtual because the MJD depends on specific date calculations. */
@@ -35,7 +49,7 @@ int Gregorian::mod_julian_day() const {
 
 /* Returns true if the current year is a leap year. */
 bool Gregorian::is_leap() const {
-  return year() % 4 == 0 && (year() % 100 != 0 || year() % 400 == 0);
+  return lab2::mod(year(), 4) == 0 && (lab2::mod(year(), 100) != 0 || lab2::mod(year(), 400) == 0);
 }
 
 /* Postfixed ++ operator. Adds one day. */
