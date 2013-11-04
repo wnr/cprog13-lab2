@@ -1,9 +1,8 @@
 #ifndef DATE_H
 #define DATE_H
 
-#define EXCEPTION_ILLEGAL_ARGUMENT 1
-
 #include <ostream>
+#include <stdexcept>
 
 namespace lab2 {
   /* Abstract interface class for representing dates. */
@@ -116,16 +115,16 @@ namespace lab2 {
     virtual int days_in_month(int month) const = 0;
 
     /* Increase years. */
-    Date & increase_year(int n = 1);
+    virtual Date & increase_year(int n = 1);
 
     /* Decrease years. */
-    Date & decrease_year(int n = 1);
+    virtual Date & decrease_year(int n = 1);
 
     /* Increase months. */
-    Date & increase_month(int n = 1);
+    virtual Date & increase_month(int n = 1);
 
     /* Decrease months. */
-    Date & decrease_month(int n = 1);
+    virtual Date & decrease_month(int n = 1);
 
     /* Increase days. */
     Date & increase_day(int n = 1);

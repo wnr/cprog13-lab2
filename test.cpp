@@ -23,7 +23,7 @@ protected:
       return 28;
     }
 
-    throw EXCEPTION_ILLEGAL_ARGUMENT;
+    throw std::out_of_range("Illegal month");
   }
 };
 
@@ -73,7 +73,7 @@ int main() {
     assert(date.days_this_month() == 30);
 
     date = TestDate(7, 12, 1991, 4, 4);
-    assert(date.days_this_month() == 30git );
+    assert(date.days_this_month() == 30);
   }
   // days_per_year
   {

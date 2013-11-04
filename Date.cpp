@@ -213,7 +213,7 @@ Date & Date::add_day(int n) {
 /* Increase years. */
 Date & Date::increase_year(int n) {
   if(n < 0) {
-    throw EXCEPTION_ILLEGAL_ARGUMENT;
+    throw std::out_of_range("Illegal n");
   }
 
   mYear += n;
@@ -224,7 +224,7 @@ Date & Date::increase_year(int n) {
 /* Decrease years. */
 Date & Date::decrease_year(int n) {
   if(n < 0) {
-    throw EXCEPTION_ILLEGAL_ARGUMENT;
+    throw std::out_of_range("Illegal n");
   }
 
   mYear -= n;
@@ -235,7 +235,7 @@ Date & Date::decrease_year(int n) {
 /* Increase months. */
 Date & Date::increase_month(int n) {
   if(n < 0) {
-    throw EXCEPTION_ILLEGAL_ARGUMENT;
+    throw std::out_of_range("Illegal n");
   }
 
   for(; n > 0; n--) {
@@ -257,7 +257,7 @@ Date & Date::increase_month(int n) {
 /* Decrease months. */
 Date & Date::decrease_month(int n) {
   if(n < 0) {
-    throw EXCEPTION_ILLEGAL_ARGUMENT;
+    throw std::out_of_range("Illegal n");
   }
 
   for(; n > 0; n--) {
@@ -279,7 +279,7 @@ Date & Date::decrease_month(int n) {
 /* Increase days. */
 Date & Date::increase_day(int n) {
   if(n < 0) {
-    throw EXCEPTION_ILLEGAL_ARGUMENT;
+    throw std::out_of_range("Illegal n");
   }
 
   for(; n > 0; n--) {
@@ -297,7 +297,7 @@ Date & Date::increase_day(int n) {
 /* Decrease days. */
 Date & Date::decrease_day(int n) {
   if(n < 0) {
-    throw EXCEPTION_ILLEGAL_ARGUMENT;
+    throw std::out_of_range("Illegal n");
   }
 
   for(; n > 0; n--) {
