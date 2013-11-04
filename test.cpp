@@ -10,7 +10,10 @@ public:
   TestDate() : Date() {}
   TestDate(int numDaysPerWeek, int numMonthsPerYear, int year, int month, int day) : Date(numDaysPerWeek, numMonthsPerYear, year, month, day) {}
   TestDate(const Date & date) : Date(date) {}
-
+  
+  int mod_julian_day() const { return 0; }
+  
+protected:
   int days_in_month(int month) const {
     if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
       return 31;
@@ -22,8 +25,6 @@ public:
 
     throw EXCEPTION_ILLEGAL_ARGUMENT;
   }
-  
-  int mod_julian_day() const { return 0; }
 };
 
 int main() {
@@ -69,10 +70,10 @@ int main() {
   // days_this_month
   {
     TestDate date(7, 12, 1991, 11, 4);
-    assert(date.days_this_month() == date.days_in_month(11));
+    assert(date.days_this_month() == 30);
 
     date = TestDate(7, 12, 1991, 4, 4);
-    assert(date.days_this_month() == date.days_in_month(4));
+    assert(date.days_this_month() == 30);
   }
   // days_per_year
   {

@@ -56,9 +56,6 @@ namespace lab2 {
     /* Gets the number of days of the current month. */
     int days_this_month() const;
 
-    /* Gets the number of days of a given month. Pure virtual since this is unknown to the Date abstract class. */
-    virtual int days_in_month(int month) const = 0;
-
     /* Gets the number of days per year. Will be computed if not overloaded. */
     virtual int days_per_year() const;
 
@@ -114,6 +111,10 @@ namespace lab2 {
      * Pure virtual because the MJD depends on specific date calculations. */
     virtual int mod_julian_day() const = 0;
 
+  protected:
+    /* Gets the number of days of a given month. Pure virtual since this is unknown to the Date abstract class. */
+    virtual int days_in_month(int month) const = 0;
+    
   private:
     /* Increase years. */
     Date & increase_year(int n = 1);
@@ -132,7 +133,6 @@ namespace lab2 {
 
     /* Decrease days. */
     Date & decrease_day(int n = 1);
-
   };
 }
 
