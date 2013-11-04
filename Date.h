@@ -110,8 +110,9 @@ namespace lab2 {
 
     /* ======= Misc ======= */
 
-    /* Gets the number of days since modified julian day. */
-    int mod_julian_day() const;
+    /* Gets the number of days since modified julian day.
+     * Pure virtual because the MJD depends on specific date calculations. */
+    virtual int mod_julian_day() const = 0;
 
   private:
     /* Increase years. */

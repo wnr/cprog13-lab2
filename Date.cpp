@@ -208,11 +208,6 @@ Date & Date::add_day(int n) {
 
 /* ======= Misc ======= */
 
-/* Gets the number of days since modified julian day. */
-int Date::mod_julian_day() const {
-  return 0; //TODO: Implement me.
-}
-
 /* ======= Private helper functions ======= */
 
 /* Increase years. */
