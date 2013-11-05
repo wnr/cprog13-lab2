@@ -64,6 +64,17 @@ int main()
       assert(g.month() == 9);
       assert(g.day() == 19);
     }
+    {
+      Julian j(2100, 12, 27);
+
+      Date *pj2 = &j;
+      Date *pj = &j;
+      (*pj2) = *(pj);
+
+      assert(j.year() == 2100);
+      assert(j.month() == 12);
+      assert(j.day() == 27);
+    }
 
     ////////////////////////////////////////////////////////////
     // Sätt tiden. OBS skicka inte nedanstående kod till kattis

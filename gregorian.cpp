@@ -30,6 +30,10 @@ Gregorian::Gregorian(const Date * date) : Jesus(1858, 11, 17) {
 
 /* Assignment operator. */
 Gregorian & Gregorian::operator= (const Date & date) {
+  if(this == &date) {
+    return *this;
+  }
+
   mYear = 1858;
   mMonth = 11;
   mDay = 17;

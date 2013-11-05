@@ -81,11 +81,13 @@ int Date::days_per_year() const {
 /* ======= Operators ======= */
 
 Date & Date::operator= (const Date & date) {
-  mNumDaysPerWeek = date.mNumDaysPerWeek;
-  mNumMonthsPerYear = date.mNumMonthsPerYear;
-  mYear = date.mYear;
-  mMonth = date.mMonth;
-  mDay = date.mDay;
+  if(this != &date) {
+    mNumDaysPerWeek = date.mNumDaysPerWeek;
+    mNumMonthsPerYear = date.mNumMonthsPerYear;
+    mYear = date.mYear;
+    mMonth = date.mMonth;
+    mDay = date.mDay;
+  }
 
   return *this;
 }
@@ -159,7 +161,14 @@ bool Date::operator>= (const Date & date) const {
 
 /* - operator. Returns the number of days diffing the two dates. */
 int Date::operator- (const Date & date) const {
-  return this->mod_julian_day() - date.mod_julian_day();
+  int a = this->mod_julian_day();
+  int b = date.mod_julian_day();
+
+  if(a > b) {
+    return a - b;
+  }
+
+  return b - a;
 }
 
 /* ======= Adder / Setters ======= */

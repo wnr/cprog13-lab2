@@ -70,6 +70,10 @@ const Julian Julian::operator-- (int) {
 
 /* Assignment operator. */
 Julian & Julian::operator= (const Date & date) {
+  if(this == &date) {
+    return *this;
+  }
+
   mYear = 1858;
   mMonth = 11;
   mDay = 5;
