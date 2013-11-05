@@ -161,14 +161,7 @@ bool Date::operator>= (const Date & date) const {
 
 /* - operator. Returns the number of days diffing the two dates. */
 int Date::operator- (const Date & date) const {
-  int a = this->mod_julian_day();
-  int b = date.mod_julian_day();
-
-  if(a > b) {
-    return a - b;
-  }
-
-  return b - a;
+  return this->mod_julian_day() - date.mod_julian_day();
 }
 
 /* ======= Adder / Setters ======= */
