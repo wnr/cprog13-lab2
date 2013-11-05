@@ -9,31 +9,9 @@ using namespace lab2;
 Julian::Julian() : Jesus(1858, 11, 5) {
   Gregorian g = Gregorian();
 
-  int days = g.mod_julian_day();
+  int mjd = g.mod_julian_day();
 
-
-  while(days > 0) {
-    if(mMonth == 1 && mDay == 1) {
-      break;
-    } else {
-      add_day(1);
-      days--;
-    }
-  }
-
-  while(days > 0) {
-    if(is_leap() && days >= 366) {
-      add_year();
-      days -= 366;
-    } else if(!is_leap() && days >= 365) {
-      add_year();
-      days -= 365;
-    } else {
-      break;
-    }
-  }
-
-  add_day(days);
+  set_to_mjd(mjd);
 }
 
 /* Initializing constructor. */
@@ -45,12 +23,12 @@ Julian::Julian(int year, int month, int day) : Jesus(year, month, day) {
 
 /* Copy constructor. */
 Julian::Julian(const Date & date) : Jesus(1858, 11, 5) {
-  Jesus::init(date);
+  set_to_mjd(date.mod_julian_day());
 }
 
 /* Copy constructor. */
 Julian::Julian(const Date * date) : Jesus(1858, 11, 5) {
-  Jesus::init(*date);
+  set_to_mjd(date->mod_julian_day());
 }
 
 /* Returns true if the current year is a leap year. */
@@ -100,7 +78,26 @@ Julian & Julian::operator= (const Date & date) {
   mMonth = 11;
   mDay = 5;
 
-  Jesus::init(date);
+  set_to_mjd(date.mod_julian_day());
 
   return *this;
+}
+
+void Julian::set_to_mjd(int mjd) {
+  int jdn = mjd + 2400000.5 + 0.5;
+
+  int b = 0;
+  int c = jdn + 32082;
+
+  int d = (4*c + 3)/1461;
+  int e = c - (int)(1461*d/4);
+  int m = (5*e + 2)/153;
+
+  int day = e - (int)((153*m + 2)/5) + 1;
+  int month = m + 3 - 12 * (int)(m/10);
+  int year = 100*b + d - 4800 + (int)(m/10);
+
+  mDay = day;
+  mMonth = month;
+  mYear = year;
 }
