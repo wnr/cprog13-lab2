@@ -160,9 +160,3 @@ Jesus & Jesus::decrease_year(int n) {
 
   return *this;
 }
-
-void Jesus::init(const Date & date) {
-  int mjd = date.mod_julian_day();
-
-  add_day(mjd);
-}

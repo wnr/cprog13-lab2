@@ -42,8 +42,6 @@ namespace lab2 {
 
     /* Decrease years. */
     Jesus & decrease_year(int n = 1);
-
-    void init(const Date & date);
   };
 }
 

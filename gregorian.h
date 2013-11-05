@@ -38,6 +38,8 @@ namespace lab2 {
   protected:
     /* Returns true if the current year is a leap year. */
     virtual bool is_leap() const;
+
+    void set_to_mjd(int mjd);
   };
 }
 
