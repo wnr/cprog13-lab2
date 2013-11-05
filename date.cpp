@@ -10,6 +10,10 @@ std::ostream & operator<< (std::ostream & os, const lab2::Date & date) {
   return os;
 }
 
+long mod(long a, long b) {
+  return (a%b+b)%b;
+}
+
 /* ======= Constructors ======= */
 
 /* Default constructor. */
@@ -49,7 +53,7 @@ int Date::day() const {
 int Date::week_day() const {
   int mjd = mod_julian_day();
 
-  return ((mjd + 2) % days_per_week()) + 1;
+  return mod(mjd + 2, days_per_week()) + 1;
 }
 
 /* Gets the number of days in a week. */
@@ -115,7 +119,7 @@ Date & Date::operator-= (int days) {
 /* == operator. */
 //TODO: This only checks field values. Maybe should check if it is a different date type aswell?
 bool Date::operator== (const Date & date) const {
-  return mNumDaysPerWeek == date.mNumDaysPerWeek && mNumMonthsPerYear == date.mNumMonthsPerYear && mYear == date.mYear && mMonth == date.mMonth && mDay == date.mDay;
+  return this->mod_julian_day() == date.mod_julian_day();
 }
 
 /* != operator. */
@@ -125,23 +129,7 @@ bool Date::operator!= (const Date & date) const {
 
 /* < operator. */
 bool Date::operator< (const Date & date) const {
-  if(mYear < date.mYear) {
-    return true;
-  } else if(mYear > date.mYear) {
-    return false;
-  }
-
-  if(mMonth < date.mMonth) {
-    return true;
-  } else if(mMonth > date.mMonth) {
-    return false;
-  }
-
-  if(mDay < date.mDay) {
-    return true;
-  }
-
-  return false;
+  return this->mod_julian_day() < date.mod_julian_day();
 }
 
 /* > operator. */

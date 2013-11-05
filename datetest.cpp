@@ -134,6 +134,12 @@ int main()
       g.add_month();
       assert(g.month_name() == "february");
     }
+    {
+      Julian j;
+      Gregorian g;
+
+      assert(j >= g);
+    }
 
     ////////////////////////////////////////////////////////////
     // Sätt tiden. OBS skicka inte nedanstående kod till kattis

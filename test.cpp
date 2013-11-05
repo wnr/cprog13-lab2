@@ -179,47 +179,6 @@ int main() {
     assert(date.month() == 11);
     assert(date.day() == 24);
   }
-  // copmaring operators
-  {
-    TestDate date(7, 12, 1991, 11, 23);
-    TestDate date2(7, 12, 1991, 11, 23);
-
-    assert(!(date < date2));
-    assert(date == date2);
-    assert(!(date > date2));
-    assert(!(date != date2));
-    assert(date <= date2);
-    assert(date >= date2);
-
-    date2.add_day();
-
-    assert(date < date2);
-    assert(!(date == date2));
-    assert(!(date > date2));
-    assert(!(date >= date2));
-    assert(date <= date2);
-    assert(date != date2);
-
-    date2.add_day(-2);
-    date2.add_month();
-
-    assert(date < date2);
-    assert(!(date == date2));
-    assert(date <= date2);
-    assert(date != date2);
-    assert(!(date > date2));
-    assert(!(date >= date2));
-
-    date2.add_month(-2);
-    date2.add_year();
-
-    assert(date < date2);
-    assert(!(date == date2));
-    assert(date <= date2);
-    assert(date != date2);
-    assert(!(date > date2));
-    assert(!(date >= date2));
-  }
 
   set_k_time(time(NULL));
 
