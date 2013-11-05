@@ -9,9 +9,31 @@ using namespace lab2;
 Julian::Julian() : Jesus(1858, 11, 5) {
   Gregorian g = Gregorian();
 
-  int mjd = g.mod_julian_day();
+  int days = g.mod_julian_day();
 
-  add_day(mjd);
+
+  while(days > 0) {
+    if(mMonth == 1 && mDay == 1) {
+      break;
+    } else {
+      add_day(1);
+      days--;
+    }
+  }
+
+  while(days > 0) {
+    if(is_leap() && days >= 366) {
+      add_year();
+      days -= 366;
+    } else if(!is_leap() && days >= 365) {
+      add_year();
+      days -= 365;
+    } else {
+      break;
+    }
+  }
+
+  add_day(days);
 }
 
 /* Initializing constructor. */

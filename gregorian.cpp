@@ -8,7 +8,30 @@ using namespace lab2;
 Gregorian::Gregorian() : Jesus(1970, 1, 1) {
   time_t seconds = k_time(NULL);
 
-  add_day(seconds/(60*60*24));
+  int days = seconds/(60*60*24);
+
+  while(days > 0) {
+    if(mMonth == 1 && mDay == 1) {
+      break;
+    } else {
+      add_day(1);
+      days--;
+    }
+  }
+
+  while(days > 0) {
+    if(is_leap() && days >= 366) {
+      add_year();
+      days -= 366;
+    } else if(!is_leap() && days >= 365) {
+      add_year();
+      days -= 365;
+    } else {
+      break;
+    }
+  }
+
+  add_day(days);
 }
 
 /* Initializing constructor. */

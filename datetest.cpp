@@ -76,6 +76,65 @@ int main()
       assert(j.day() == 27);
     }
 
+    {
+      Gregorian g(2013, 11, 23);
+
+      assert(g.week_day_name() == "saturday");
+      g++;
+      assert(g.week_day_name() == "sunday");
+      g++;
+      assert(g.week_day_name() == "monday");
+      g++;
+      assert(g.week_day_name() == "tuesday");
+      g++;
+      assert(g.week_day_name() == "wednesday");
+      g++;
+      assert(g.week_day_name() == "thursday");
+      g++;
+      assert(g.week_day_name() == "friday");
+      g++;
+      assert(g.week_day_name() == "saturday");
+      g++;
+      assert(g.week_day_name() == "sunday");
+      g++;
+      assert(g.week_day_name() == "monday");
+    }
+    {
+      Gregorian g(2013, 11, 23);
+
+      assert(g.month_name() == "november");
+      g.add_month();
+      assert(g.month_name() == "december");
+      g.add_month();
+      assert(g.month_name() == "january");
+      g.add_month();
+      assert(g.month_name() == "february");
+      g.add_month();
+      assert(g.month_name() == "march");
+      g.add_month();
+      assert(g.month_name() == "april");
+      g.add_month();
+      assert(g.month_name() == "may");
+      g.add_month();
+      assert(g.month_name() == "june");
+      g.add_month();
+      assert(g.month_name() == "july");
+      g.add_month();
+      assert(g.month_name() == "august");
+      g.add_month();
+      assert(g.month_name() == "september");
+      g.add_month();
+      assert(g.month_name() == "october");
+      g.add_month();
+      assert(g.month_name() == "november");
+      g.add_month();
+      assert(g.month_name() == "december");
+      g.add_month();
+      assert(g.month_name() == "january");
+      g.add_month();
+      assert(g.month_name() == "february");
+    }
+
     ////////////////////////////////////////////////////////////
     // Sätt tiden. OBS skicka inte nedanstående kod till kattis
     time_t mytime;
