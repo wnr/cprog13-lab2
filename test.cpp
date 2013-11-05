@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <iostream>
+#include <time.h>
 
 #include "date.h"
 
@@ -220,7 +221,7 @@ int main() {
     assert(!(date >= date2));
   }
 
-  set_k_time(100000);
+  set_k_time(time(NULL));
 
   {
     std::cout << "----------------------------------------" << std::endl;

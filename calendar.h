@@ -126,11 +126,27 @@ namespace lab2 {
     }
 
     T to_date(int day = -1, int month = -1, int year = -1) const {
-      if(day != -1 && month != -1 && year != -1) {
-        return T(year, month, day);
+      if(day == -1 || month == -1 || year == -1) {
+        int y = currentDate.year();
+        int m = currentDate.month();
+        int d = currentDate.day();
+
+        if(year != -1) {
+          y = year;
+        }
+
+        if(month != -1) {
+          m = month;
+        }
+
+        if(day != -1) {
+          d = day;
+        }
+
+        return T(y, m, d);
       }
 
-      return T();
+      return T(year, month, day);
     }
   };
 }
