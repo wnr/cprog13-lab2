@@ -3,8 +3,10 @@
 
 using namespace lab2;
 
+template<class T>
 Calendar::Calendar() {}
 
+template<class T>
 Calendar::Calendar(const Calendar & c) {
   events = c.events;
   currentDate = c.currentDate;

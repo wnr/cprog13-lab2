@@ -33,6 +33,8 @@ namespace lab2 {
     /* Copy constructor. */
     Date(const Date & date);
 
+    virtual ~Date();
+
     /* ======= Getters ======= */
 
     /* Gets the current year. */
@@ -58,10 +60,10 @@ namespace lab2 {
 
     /* Gets the number of days per year. Will be computed if not overloaded. */
     virtual int days_per_year() const;
-    
+
     /* Gets the week day name. */
     virtual std::string week_day_name() const = 0;
-    
+
     /* Gets the month name. */
     virtual std::string month_name() const = 0;
 
@@ -118,7 +120,7 @@ namespace lab2 {
     virtual int mod_julian_day() const = 0;
 
   protected:
-    /* Gets the number of days of a given month. Pure virtual since this is unknown to the Date abstract class. 
+    /* Gets the number of days of a given month. Pure virtual since this is unknown to the Date abstract class.
      * Is cyclic, so month = 13 = 1. */
     virtual int days_in_month(int month) const = 0;
 

@@ -6,7 +6,7 @@ using namespace lab2;
 
 /* << operator. Function used to print object by ostream. */
 std::ostream & operator<< (std::ostream & os, const lab2::Date & date) {
-  os << /*typeid(date).name() <<*/ date.year() << "-" << std::setw(2) << std::setfill('0') << date.month() << "-" << std::setw(2) << std::setfill('0') << date.day();
+  os << typeid(date).name() << date.year() << "-" << std::setw(2) << std::setfill('0') << date.month() << "-" << std::setw(2) << std::setfill('0') << date.day();
   return os;
 }
 
@@ -25,6 +25,8 @@ Date::Date(int numDaysPerWeek, int numMonthsPerYear, int year, int month, int da
 /* Copy constructor. */
 //TODO: Is it possible to copy one type of calender to another? If so, then what happens with the overloaded functions, etc?
 Date::Date(const Date & date) : mNumDaysPerWeek(date.mNumDaysPerWeek), mNumMonthsPerYear(date.mNumMonthsPerYear), mYear(date.mYear), mMonth(date.mMonth), mDay(date.mDay) {}
+
+Date::~Date() {}
 
 /* ======= Getters ======= */
 
@@ -46,7 +48,7 @@ int Date::day() const {
 /* Gets the current week day. */
 int Date::week_day() const {
   int mjd = mod_julian_day();
-  
+
   return ((mjd + 2) % days_per_week()) + 1;
 }
 
