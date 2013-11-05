@@ -2,9 +2,13 @@
 #define CALENDAR_H
 
 #include "date.h"
+#include "julian.h"
+#include "gregorian.h"
+
 #include <list>
-#include <tuple>
 #include <iterator>
+#include <iostream>
+#include <algorithm>
 
 namespace lab2 {
   template<typename T>
@@ -12,28 +16,59 @@ namespace lab2 {
     std::string text;
     T date;
 
-    Event(const std::string & t, const T & d) : text(t), date(t) {}
+    friend struct Event<Julian>;
+    friend struct Event<Gregorian>;
+
+    Event(const std::string & t, const T & d) : text(t), date(d) {}
+
+    template<class A>
+    Event(const Event<A> & e) : text(e.text), date(e.date) {}
 
     bool operator< (const Event & e) const {
-      return date < e.date;
+      return (date < e.date || (date == e.date && text < e.text));
     }
 
     bool operator== (const Event & e) const {
-      return date == e.date;
+      return date == e.date && text == e.text;
+    }
+
+    bool operator> (const Event & e) const {
+      return !(*this < e && *this == e);
     }
   };
 
   template<typename T>
   class Calendar {
-    std::list<Event<T>> events;
+    std::list<Event<T> > events;
 
     T currentDate;
 
   public:
+    friend class Calendar<Julian>;
+    friend class Calendar<Gregorian>;
+    friend std::ostream & operator<< (std::ostream & os, const Calendar<Gregorian> & cal) {
+      for(auto it = cal.events.begin(); it != cal.events.end(); it++) {
+        if((*it).date > cal.currentDate) {
+          os << (*it).date << " : " << (*it).text << std::endl;
+        }
+      }
+
+      return os;
+    }
+
     Calendar() {}
 
-    Calendar(const Calendar & cal) {
-      events = cal.events;
+    Calendar(const Date * date) {
+      currentDate = *date;
+    }
+
+    Calendar(const Date & date) {
+      currentDate = date;
+    }
+
+    template<class F>
+    Calendar(const Calendar<F> & cal) {
+      events = std::list<Event<T> >(cal.events.begin(), cal.events.end());
       currentDate = cal.currentDate;
     }
 
@@ -47,13 +82,14 @@ namespace lab2 {
       return true;
     }
 
-    bool add_event(const std::string & event, int day, int month, int year) {
+    bool add_event(const std::string & event, int day = -1, int month = -1, int year = -1) {
       try {
         if(exist(event, day, month, year)) {
           return false;
         }
 
-        events.append(Event<T>(event, T(year, month, day)));
+        events.push_back(Event<T>(event, to_date(day, month, year)));
+        events.sort();
       } catch(std::out_of_range oor) {
         return false;
       }
@@ -61,13 +97,7 @@ namespace lab2 {
       return true;
     }
 
-    bool add_event(const std::string & event) {
-      T d;
-
-      return add_event(event, d.day(), d.month(), d.year());
-    }
-
-    bool remove_event(const std::string & event, int day, int month, int year) {
+    bool remove_event(const std::string & event, int day = -1, int month = -1, int year = -1) {
       try {
         auto pos = find(event, day, month, year);
 
@@ -84,16 +114,29 @@ namespace lab2 {
     }
 
   private:
-    typename std::list<Event<T>>::iterator find(const std::string & event, int day, int month, int year) const {
-      Event<T> e(event, T(year, month, day));
+    typename std::list<Event<T> >::const_iterator find(const std::string & event, int day = -1, int month = -1, int year = -1) const {
+      Event<T> e(event, to_date(day, month, year));
 
-      return std::find(events.begin(), events.end(), e);
+      typename std::list<Event<T> >::const_iterator it = std::find(events.begin(), events.end(), e);
+      return it;
     }
 
-    bool exist(const std::string & event, int day, int month, int year) const {
+    bool exist(const std::string & event, int day = -1, int month = -1, int year = -1) const {
       return find(event, day, month, year) != events.end();
+    }
+
+    T to_date(int day = -1, int month = -1, int year = -1) const {
+      if(day != -1 && month != -1 && year != -1) {
+        return T(year, month, day);
+      }
+
+      return T();
     }
   };
 }
+
+/* << operator. Function used to print object by ostream. */
+//std::ostream & operator<< (std::ostream & os, const lab2::Calendar<lab2::Gregorian> & cal);
+//std::ostream & operator<< (std::ostream & os, const lab2::Calendar<lab2::Julian> & cal);
 
 #endif
