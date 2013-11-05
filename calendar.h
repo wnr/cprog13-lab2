@@ -25,7 +25,7 @@ namespace lab2 {
     Event(const Event<A> & e) : text(e.text), date(e.date) {}
 
     bool operator< (const Event & e) const {
-      return (date < e.date || (date == e.date && text < e.text));
+      return (date < e.date);
     }
 
     bool operator== (const Event & e) const {
@@ -46,7 +46,8 @@ namespace lab2 {
   public:
     friend class Calendar<Julian>;
     friend class Calendar<Gregorian>;
-    friend std::ostream & operator<< (std::ostream & os, const Calendar<Gregorian> & cal) {
+    template<class A>
+    friend std::ostream & operator<< (std::ostream & os, const Calendar<A> & cal) {
       for(auto it = cal.events.begin(); it != cal.events.end(); it++) {
         if((*it).date > cal.currentDate) {
           os << (*it).date << " : " << (*it).text << std::endl;
@@ -70,6 +71,11 @@ namespace lab2 {
     Calendar(const Calendar<F> & cal) {
       events = std::list<Event<T> >(cal.events.begin(), cal.events.end());
       currentDate = cal.currentDate;
+    }
+
+    //TODO: Remove me.
+    T get_date() {
+      return currentDate;
     }
 
     bool set_date(int year, int month, int day) {

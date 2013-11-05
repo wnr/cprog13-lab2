@@ -6,7 +6,7 @@ using namespace lab2;
 
 /* << operator. Function used to print object by ostream. */
 std::ostream & operator<< (std::ostream & os, const lab2::Date & date) {
-  os << /*typeid(date).name() <<*/ date.year() << "-" << std::setw(2) << std::setfill('0') << date.month() << "-" << std::setw(2) << std::setfill('0') << date.day();
+  os << /*typeid(date).name() << */date.year() << "-" << std::setw(2) << std::setfill('0') << date.month() << "-" << std::setw(2) << std::setfill('0') << date.day();
   return os;
 }
 

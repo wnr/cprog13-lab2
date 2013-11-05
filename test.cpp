@@ -251,6 +251,15 @@ int main() {
     std::cout << "----------------------------------------" << std::endl;
     std::cout << cal;
   }
+  {
+    Calendar<Gregorian> cal;
+    assert(cal.set_date(2100, 2, 29) == false);
+
+    cal.add_event("VeyplGA", 1, 1, 2014);
+    cal.add_event("cjJMbGs", 1, 1, 2014);
+
+    std::cout << std::endl << cal << std::endl;
+  }
 
   std::cout << std::endl << std::endl << "\033[32mAll tests passed.\033[0m" << std::endl;
 
