@@ -8,9 +8,9 @@ using namespace lab2;
 /* Default constructor. Inits to current date. */
 Julian::Julian() : Jesus(1858, 11, 5) {
   Gregorian g = Gregorian();
-  
+
   int mjd = g.mod_julian_day();
-  
+
   add_day(mjd);
 }
 
@@ -42,15 +42,15 @@ int Julian::mod_julian_day() const {
   int a = (14 - month()) / 12;
   int y = year() + 4800 - a;
   int m = month() + 12 * a - 3;
-  
+
   double jdn = day() + (153 * m + 2) / 5 + 365 * y + y / 4 -32083;
-  
+
   double mjd = jdn - 2400000.5;
-  
+
   if(mjd < 0) {
     mjd--;
   }
- 
+
   return mjd;
 }
 
@@ -66,4 +66,15 @@ const Julian Julian::operator-- (int) {
   Julian j(*this);
   add_day(-1);
   return j;
+}
+
+/* Assignment operator. */
+Julian & Julian::operator= (const Date & date) {
+  mYear = 1858;
+  mMonth = 11;
+  mDay = 5;
+
+  Jesus::init(date);
+
+  return *this;
 }

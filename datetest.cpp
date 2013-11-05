@@ -1,7 +1,7 @@
 // projektlokala headerfiler
-#include "kattistime.h"     
-#include "julian.h"         
-#include "gregorian.h"      
+#include "kattistime.h"
+#include "julian.h"
+#include "gregorian.h"
 
 // STL headerfiler
 #include <iostream>
@@ -43,7 +43,7 @@ int main()
     {
       Julian j = Julian(2604, 2, 29);
       j.add_year(1);
-      
+
       assert(j.day() == 28);
     }
     {
@@ -51,6 +51,18 @@ int main()
       j.add_month(-2);
       assert(j.month() == 12);
       assert(j.day() == 28);
+    }
+    {
+      Julian j = Julian(1998, 9, 6);
+      Gregorian g;
+
+      Date *to = &g;
+
+      (*to) = j;
+
+      assert(g.year() == 1998);
+      assert(g.month() == 9);
+      assert(g.day() == 19);
     }
 
     ////////////////////////////////////////////////////////////
@@ -60,7 +72,7 @@ int main()
     set_k_time(mytime);
     ////////////////////////////////////////////////////////////
 
-    
+
     Julian tj;                  // ok: defaultkonstruktor ger dagens datum
     Gregorian gtoday;           // ok för gregorian också
     std::cout << "Idag är det " << gtoday << std::endl;
@@ -71,7 +83,7 @@ int main()
                                 // följande fungerar också:
                                 // Gregorian(2000, Gregorian::October, 31)
     Date &j = tj;               // åtkomst av funktioner genom Dates interface
-    Date &g = tg;       
+    Date &g = tg;
     Date &today = gtoday;
 
     {
@@ -81,7 +93,7 @@ int main()
       Date * dp = &j2;
       Julian j3(dp);
     }
-     
+
     time_t tp;
     time(&tp);
     struct tm *t = gmtime(&tp);
@@ -96,7 +108,7 @@ int main()
     assert(g.year() == 2006 &&              // rätt initierad
            g.month() == 10 &&
            g.day() == 31);                  // obs! ettindexerade
-    
+
     std::cout << "Testing access..." << std::endl;
     assert(g.days_per_week() == 7);         // rätt antal dagar per vecka
     assert(j.days_per_week() == 7);         // rätt antal dagar per vecka
@@ -115,20 +127,20 @@ int main()
     assert(g.week_day() == 4); // rätt veckodag
     g -= 3;                     // dra bort tre dagar
     g.add_month();              // lägg till en månad
-    g.add_month(-1);            // dra bort en månad    
+    g.add_month(-1);            // dra bort en månad
     g.add_year(10);             // lägg till tio år.
-    
+
     std::cout << "Testing miscellaneous functions..." << std::endl;
     Julian jj(tj);              // kopieringskonstruktor
     const Gregorian gg;
     gg.year();                  // gg konstant, läsa går bra
     g = gg;                     // tilldelning
     if(g == gg ||               // jämförelse
-       g != gg ||               // jämförelse 
-       g < gg ||                // jämförelse 
-       g >= gg)                 // jämförelse 
+       g != gg ||               // jämförelse
+       g < gg ||                // jämförelse
+       g >= gg)                 // jämförelse
         {}
-    
+
     std::cout << "Testing boundary violations";
     Gregorian temp(1900, 1, 1);
     Date &d = temp;
@@ -142,7 +154,7 @@ int main()
                     flush(std::cout);
                 }
             int m[] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-            if(d.year() >= 1900 && 
+            if(d.year() >= 1900 &&
                d.month() >= 1 && d.month() <= 12 &&
                d.day() >= 1 && d.day() <= m[d.month() - 1])
                 {}
@@ -177,7 +189,7 @@ int main()
                     return 1;
                 }
         }
-    
+
     std::cout << std::endl << "All tests were successful." << std::endl;
 
     // följande ska inte gå att kompilera

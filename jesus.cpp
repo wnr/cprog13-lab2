@@ -3,7 +3,7 @@
 
 using namespace lab2;
 
-long lab2::mod(long a, long b) { 
+long lab2::mod(long a, long b) {
   return (a%b+b)%b;
 }
 
@@ -27,7 +27,7 @@ std::string Jesus::week_day_name() const {
   } else if(week_day() == 7) {
     return std::string("sunday");
   }
-  
+
   throw std::out_of_range("Invalid week day");
 }
 
@@ -58,11 +58,11 @@ std::string Jesus::month_name() const {
   } else if(month() == 12) {
     return std::string("december");
   }
-  
+
   throw std::out_of_range("Invalid month number");
 }
 
-/* Gets the number of days of a given month. Pure virtual since this is unknown to the Date abstract class. 
+/* Gets the number of days of a given month. Pure virtual since this is unknown to the Date abstract class.
  * Is cyclic, so month = 13 = 1. */
 int Jesus::days_in_month(int month) const {
   month = mod(month - 1, 12) + 1;
@@ -75,7 +75,7 @@ int Jesus::days_in_month(int month) const {
     if(is_leap()) {
       return 29;
     }
-    
+
     return 28;
   }
 
@@ -87,20 +87,20 @@ Jesus & Jesus::increase_month(int n) {
   if(n < 0) {
     throw std::out_of_range("Illegal n");
   }
-  
+
   for(; n > 0; n--) {
     if(days_in_month(month() + 1) < mDay) {
       add_day(30);
     } else {
       mMonth++;
-      
+
       if(mMonth > months_per_year()) {
         mMonth = 1;
         add_year();
       }
     }
   }
-  
+
   return *this;
 }
 
@@ -109,20 +109,20 @@ Jesus & Jesus::decrease_month(int n) {
   if(n < 0) {
     throw std::out_of_range("Illegal n");
   }
-  
+
   for(; n > 0; n--) {
     if(days_in_month(month() - 1) < mDay) {
       add_day(-30);
     } else {
       mMonth--;
-      
+
       if(mMonth == 0) {
         mMonth = 12;
         add_year(-1);
       }
     }
   }
-  
+
   return *this;
 }
 
@@ -131,16 +131,16 @@ Jesus & Jesus::increase_year(int n) {
   if(n < 0) {
     throw std::out_of_range("Illegal n");
   }
-  
+
   mYear += n;
-  
+
   if(month() == 2 && day() == 29) {
-  
+
     if(!is_leap()) {
       mDay = 28;
     }
   }
-  
+
   return *this;
 }
 
@@ -149,20 +149,20 @@ Jesus & Jesus::decrease_year(int n) {
   if(n < 0) {
     throw std::out_of_range("Illegal n");
   }
-  
+
   mYear -= n;
-  
+
   if(month() == 2 && day() == 29) {
     if(!is_leap()) {
       mDay = 28;
     }
   }
-  
+
   return *this;
 }
 
 void Jesus::init(const Date & date) {
   int mjd = date.mod_julian_day();
-  
+
   add_day(mjd);
 }

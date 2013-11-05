@@ -69,6 +69,9 @@ namespace lab2 {
 
     /* ======= Operators ======= */
 
+    /* Assignment operator. */
+    virtual Date & operator= (const Date & date);
+
     /* Prefixed ++ operator. Adds one day. */
     Date & operator++ ();
 
