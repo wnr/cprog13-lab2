@@ -5,8 +5,12 @@
 #include <stdexcept>
 
 namespace lab2 {
+class Date;
+  std::ostream & operator<<(std::ostream & os, const Date &);
+}
+
   /* Abstract interface class for representing dates. */
-  class Date {
+  class lab2::Date {
   protected:
     //The number of days in a week.
     int mNumDaysPerWeek;
@@ -145,9 +149,6 @@ namespace lab2 {
     /* Decrease days. */
     Date & decrease_day(int n = 1);
   };
-}
 
-/* << operator. Function used to print object by ostream. */
-std::ostream & operator<< (std::ostream & os, const lab2::Date & date);
 
 #endif
