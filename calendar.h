@@ -36,11 +36,11 @@ namespace lab2 {
       return !(*this < e && *this == e);
     }
 
-    template<class A>
-    friend std::ostream & operator<< (std::ostream & os, const Event<A> & event) {
-          os << event.date << " : " << event.text << std::endl;
-      return os;
-    }
+    // template<class A>
+    // friend std::ostream & operator<< (std::ostream & os, const Event<A> & event) {
+    //   os << event.date << " : " << event.text;
+    //   return os;
+    // }
   };
 
   template<typename T>
@@ -126,6 +126,13 @@ namespace lab2 {
     }
 
   private:
+    typename std::list<Event<T> >::iterator find(const std::string & event, int day = -1, int month = -1, int year = -1) {
+      Event<T> e(event, to_date(day, month, year));
+
+      typename std::list<Event<T> >::iterator it = std::find(events.begin(), events.end(), e);
+      return it;
+    }
+
     typename std::list<Event<T> >::const_iterator find(const std::string & event, int day = -1, int month = -1, int year = -1) const {
       Event<T> e(event, to_date(day, month, year));
 
