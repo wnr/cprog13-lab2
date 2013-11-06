@@ -52,8 +52,8 @@ namespace lab2 {
   public:
     friend class Calendar<Julian>;
     friend class Calendar<Gregorian>;
-    template<class A>
-    friend std::ostream & operator<< (std::ostream & os, const Calendar<A> & cal) {
+    
+    friend std::ostream & operator<< (std::ostream & os, const Calendar & cal) {
       for(auto it = cal.events.begin(); it != cal.events.end(); it++) {
         if((*it).date > cal.currentDate) {
           os << (*it).date << " : " << (*it).text << std::endl;
