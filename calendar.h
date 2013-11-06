@@ -35,6 +35,12 @@ namespace lab2 {
     bool operator> (const Event & e) const {
       return !(*this < e && *this == e);
     }
+
+    template<class A>
+    friend std::ostream & operator<< (std::ostream & os, const Event<A> & event) {
+          os << event.date << " : " << event.text << std::endl;
+      return os;
+    }
   };
 
   template<typename T>
