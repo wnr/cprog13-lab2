@@ -52,9 +52,9 @@ namespace lab2 {
   public:
     friend class Calendar<Julian>;
     friend class Calendar<Gregorian>;
-    
+
     friend std::ostream & operator<< (std::ostream & os, const Calendar & cal) {
-      for(auto it = cal.events.begin(); it != cal.events.end(); it++) {
+      for(typename std::list<Event<T> >::const_iterator it = cal.events.begin(); it != cal.events.end(); it++) {
         if((*it).date > cal.currentDate) {
           os << (*it).date << " : " << (*it).text << std::endl;
         }
@@ -84,6 +84,14 @@ namespace lab2 {
       return currentDate;
     }
 
+    bool set_date(int year) {
+      return set_date(year, currentDate.month(), currentDate.day());
+    }
+
+    bool set_date(int year, int month) {
+      return set_date(year, month, currentDate.day());
+    }
+
     bool set_date(int year, int month, int day) {
       try {
         currentDate = T(year, month, day);
@@ -94,78 +102,86 @@ namespace lab2 {
       return true;
     }
 
-    bool add_event(const std::string & event, int day = -1, int month = -1, int year = -1) {
-      try {
-        if(exist(event, day, month, year)) {
-          return false;
-        }
+    bool add_event(const std::string & event) {
+      return add_event(event, currentDate);
+    }
 
-        events.push_back(Event<T>(event, to_date(day, month, year)));
-        events.sort();
+    bool add_event(const std::string & event, int day) {
+      return add_event(event, day, currentDate.month(), currentDate.year());
+    }
+
+    bool add_event(const std::string & event, int day, int month) {
+      return add_event(event, day, month, currentDate.year());
+    }
+
+    bool add_event(const std::string & event, int day, int month, int year) {
+      try {
+        return add_event(event, T(year, month, day));
       } catch(std::out_of_range oor) {
         return false;
       }
+    }
+
+    bool add_event(const std::string & event, const T & date) {
+      if(exist(event, date)) {
+        return false;
+      }
+
+      events.push_back(Event<T>(event, date));
+      events.sort();
 
       return true;
     }
 
-    bool remove_event(const std::string & event, int day = -1, int month = -1, int year = -1) {
-      try {
-        auto pos = find(event, day, month, year);
+    bool remove_event(const std::string & event) {
+      return remove_event(event, currentDate);
+    }
 
-        if(pos != events.end()) {
-          events.erase(pos);
-        } else {
-          return false;
-        }
+    bool remove_event(const std::string & event, int day) {
+      return remove_event(event, day, currentDate.month(), currentDate.year());
+    }
+
+    bool remove_event(const std::string & event, int day, int month) {
+      return remove_event(event, day, month, currentDate.year());
+    }
+
+    bool remove_event(const std::string & event, int day, int month, int year) {
+      try {
+        return remove_event(event, T(year, month, day));
       } catch(std::out_of_range oor) {
         return false;
       }
+    }
+
+    bool remove_event(const std::string & event, const T & date) {
+      typename std::list<Event<T> >::iterator pos = find(event, date);
+
+      if(pos == events.end()) {
+        return false;
+      }
+
+      events.erase(pos);
 
       return true;
     }
 
   private:
-    typename std::list<Event<T> >::iterator find(const std::string & event, int day = -1, int month = -1, int year = -1) {
-      Event<T> e(event, to_date(day, month, year));
+    typename std::list<Event<T> >::iterator find(const std::string & event, const T & date) {
+      Event<T> e(event, date);
 
       typename std::list<Event<T> >::iterator it = std::find(events.begin(), events.end(), e);
       return it;
     }
 
-    typename std::list<Event<T> >::const_iterator find(const std::string & event, int day = -1, int month = -1, int year = -1) const {
-      Event<T> e(event, to_date(day, month, year));
+    typename std::list<Event<T> >::const_iterator find(const std::string & event, const T & date) const {
+      Event<T> e(event, date);
 
       typename std::list<Event<T> >::const_iterator it = std::find(events.begin(), events.end(), e);
       return it;
     }
 
-    bool exist(const std::string & event, int day = -1, int month = -1, int year = -1) const {
-      return find(event, day, month, year) != events.end();
-    }
-
-    T to_date(int day = -1, int month = -1, int year = -1) const {
-      if(day == -1 || month == -1 || year == -1) {
-        int y = currentDate.year();
-        int m = currentDate.month();
-        int d = currentDate.day();
-
-        if(year != -1) {
-          y = year;
-        }
-
-        if(month != -1) {
-          m = month;
-        }
-
-        if(day != -1) {
-          d = day;
-        }
-
-        return T(y, m, d);
-      }
-
-      return T(year, month, day);
+    bool exist(const std::string & event, const T & date) const {
+      return find(event, date) != events.end();
     }
   };
 }

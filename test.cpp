@@ -219,6 +219,40 @@ int main() {
 
     std::cout << std::endl << cal << std::endl;
   }
+  {
+    Calendar<Gregorian> cal;
+    assert(cal.add_event("hej"));
+    assert(cal.add_event("hej") == false);
+
+    assert(cal.add_event("hej", 1));
+    assert(cal.add_event("hej", 1) == false);
+
+    assert(cal.add_event("hej", 1, 1));
+    assert(cal.add_event("hej", 1, 1) == false);
+
+    assert(cal.add_event("hej", 1, 1, 1991));
+    assert(cal.add_event("hej", 1, 1, 1991) == false);
+  }
+  {
+    Calendar<Julian> cal;
+    assert(cal.add_event("hej"));
+    assert(cal.add_event("hej") == false);
+
+    assert(cal.add_event("hej", 1));
+    assert(cal.add_event("hej", 1) == false);
+
+    assert(cal.add_event("hej", 1, 1));
+    assert(cal.add_event("hej", 1, 1) == false);
+
+    assert(cal.add_event("hej", 1, 1, 1991));
+    assert(cal.add_event("hej", 1, 1, 1991) == false);
+  }
+  {
+    Calendar<Gregorian> cal;
+
+    assert(cal.add_event("lol", 6, 7, 2019));
+    assert(cal.remove_event("lol", 6, 7, 2019));
+  }
 
   std::cout << std::endl << std::endl << "\033[32mAll tests passed.\033[0m" << std::endl;
 
